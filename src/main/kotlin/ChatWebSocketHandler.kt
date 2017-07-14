@@ -29,6 +29,7 @@ class ChatWebSocketHandler {
     @OnWebSocketMessage
     fun onMessage(user: Session, message: String) {
         // TODO: i think it makes sense to send messages as json strings, this way pathing can easily be implemented, as well as headers
+        // TODO: implement pathing
         val user = Chat.userUsernameMap[user]
         if (user != null) {
             Chat.broadcastMessage(user, message)

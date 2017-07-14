@@ -1,4 +1,4 @@
-group 'simple-spark-socket-chat'
+group 'improved-spark-sockets'
 version '0.0.0'
 
 buildscript {
@@ -19,12 +19,18 @@ repositories {
 }
 
 dependencies {
+    // Kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
-    compile "com.sparkjava:spark-core:2.5.4"
+
+    // Spark Framework
+    // TODO: the spark-kotlin appears to just be spark java written in kotlin, decide which one to go with...
+//    compile "com.sparkjava:spark-core:2.6.0"
+    compile "com.sparkjava:spark-kotlin:1.0.0-alpha"
+
+    // Additional Libraries
     compile "com.j2html:j2html:1.0.0"
     compile "org.json:json:20160810"
     compile  "org.slf4j:slf4j-simple:1.6.1"
-
 }
 
 compileKotlin {
