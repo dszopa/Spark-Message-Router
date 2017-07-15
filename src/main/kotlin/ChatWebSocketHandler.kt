@@ -1,14 +1,25 @@
+
+import improved.spark.sockets.RouteMapper
 import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage
 import org.eclipse.jetty.websocket.api.annotations.WebSocket
+import routes.SimpleRoute
 
 @WebSocket
 class ChatWebSocketHandler {
 
+    private val routeMapper: RouteMapper = RouteMapper()
+
     private var sender: String? = null
     private var msg: String? = null
+
+    init {
+        // Map routes to implementation classes here
+        routeMapper.addRoute("simpleRoute", SimpleRoute::class.java)
+    }
+
 
     @OnWebSocketConnect
     @Throws(Exception::class)
@@ -28,11 +39,6 @@ class ChatWebSocketHandler {
 
     @OnWebSocketMessage
     fun onMessage(user: Session, message: String) {
-        // TODO: i think it makes sense to send messages as json strings, this way pathing can easily be implemented, as well as headers
-        // TODO: implement pathing
-        val user = Chat.userUsernameMap[user]
-        if (user != null) {
-            Chat.broadcastMessage(user, message)
-        }
+        routeMapper.mapToRoute(user, message)
     }
 }

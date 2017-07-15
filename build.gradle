@@ -21,11 +21,15 @@ repositories {
 dependencies {
     // Kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-reflect"
+    testCompile "org.jetbrains.kotlin:kotlin-test"
+    testCompile "org.jetbrains.kotlin:kotlin-test-junit"
 
     // Spark Framework
-    // TODO: the spark-kotlin appears to just be spark java written in kotlin, decide which one to go with...
-//    compile "com.sparkjava:spark-core:2.6.0"
     compile "com.sparkjava:spark-kotlin:1.0.0-alpha"
+
+    // Utilities
+    compile 'com.google.guava:guava:22.0'
 
     // Additional Libraries
     compile "com.j2html:j2html:1.0.0"

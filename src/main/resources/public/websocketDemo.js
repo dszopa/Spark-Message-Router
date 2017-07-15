@@ -10,12 +10,16 @@ id("send").addEventListener("click", function () {
 
 //Send message if enter is pressed in the input field
 id("message").addEventListener("keypress", function (e) {
-    if (e.keyCode === 13) { sendMessage(e.target.value); }
+    if (e.keyCode === 13) {
+        var sendString = {route: 'simpleRoute', message: e.target.value};
+        sendMessage(JSON.stringify(sendString));
+    }
 });
 
-function ping() {
-    webSocket.
-}
+// TODO: Implement Ping & Pong Functionality
+// function ping() {
+//     webSocket.
+// }
 
 //Send a message if it's not empty, then clear the input field
 function sendMessage(message) {
