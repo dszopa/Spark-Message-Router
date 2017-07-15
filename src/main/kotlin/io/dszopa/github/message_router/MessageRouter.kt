@@ -21,6 +21,7 @@ class MessageRouter(packagePath: String) {
         val classesContainingRouteMethods: List<String> = scanResult.getNamesOfClassesWithMethodAnnotation(Route::class.java)
 
         for (className: String in classesContainingRouteMethods) {
+
             val clazz: Class<*> = Class.forName(className)
             val instance: Any = clazz.newInstance()
 
