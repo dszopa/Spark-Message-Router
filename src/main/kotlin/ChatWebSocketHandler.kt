@@ -5,21 +5,11 @@ import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage
 import org.eclipse.jetty.websocket.api.annotations.WebSocket
-import routes.SimpleRoute
 
 @WebSocket
 class ChatWebSocketHandler {
 
-    private val messageRouter: MessageRouter = MessageRouter()
-
-    private var sender: String? = null
-    private var msg: String? = null
-
-    init {
-        // Map routes to implementation classes here
-        messageRouter.addRoute("simpleRoute", SimpleRoute::class.java)
-    }
-
+    private val messageRouter: MessageRouter = MessageRouter("routes")
 
     @OnWebSocketConnect
     @Throws(Exception::class)
@@ -39,6 +29,6 @@ class ChatWebSocketHandler {
 
     @OnWebSocketMessage
     fun onMessage(user: Session, message: String) {
-        messageRouter.mapToRoute(user, message)
+        messageRouter.handle(user, message)
     }
 }

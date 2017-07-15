@@ -1,15 +1,14 @@
 package routes
-import Chat
-import io.dszopa.github.message_router.RouteHandler
+
+import io.dszopa.github.message_router.annotation.MessageController
+import io.dszopa.github.message_router.annotation.Route
 import org.eclipse.jetty.websocket.api.Session
-import org.json.JSONObject
 
-class SimpleRoute : RouteHandler {
+@MessageController
+class SimpleRoute {
 
-    override fun handle(user: Session, message: JSONObject) {
-        val user = Chat.userUsernameMap[user]
-        if (user != null && message.has("message")) {
-            Chat.broadcastMessage(user, message.getString("message"))
-        }
+    @Route("simpleRoute")
+    fun helloWorld(user: Session, message: String) {
+        println("Hello World!");
     }
 }

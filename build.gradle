@@ -28,6 +28,9 @@ dependencies {
     // Spark Framework
     compile "com.sparkjava:spark-kotlin:1.0.0-alpha"
 
+    // FastClassPath
+    compile group: 'io.github.lukehutch', name: 'fast-classpath-scanner', version: '2.4.2'
+
     // Utilities
     compile 'com.google.guava:guava:22.0'
 
