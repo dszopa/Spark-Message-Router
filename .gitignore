@@ -192,3 +192,4 @@ local.properties
 /.idea/
 /.gradle/
 /gradle/wrapper/gradle-wrapper.jar
+/message-router.iml

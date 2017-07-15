@@ -1,5 +1,5 @@
 
-import improved.spark.sockets.RouteMapper
+import io.dszopa.github.message_router.MessageRouter
 import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect
@@ -10,14 +10,14 @@ import routes.SimpleRoute
 @WebSocket
 class ChatWebSocketHandler {
 
-    private val routeMapper: RouteMapper = RouteMapper()
+    private val messageRouter: MessageRouter = MessageRouter()
 
     private var sender: String? = null
     private var msg: String? = null
 
     init {
         // Map routes to implementation classes here
-        routeMapper.addRoute("simpleRoute", SimpleRoute::class.java)
+        messageRouter.addRoute("simpleRoute", SimpleRoute::class.java)
     }
 
 
@@ -39,6 +39,6 @@ class ChatWebSocketHandler {
 
     @OnWebSocketMessage
     fun onMessage(user: Session, message: String) {
-        routeMapper.mapToRoute(user, message)
+        messageRouter.mapToRoute(user, message)
     }
 }

@@ -1,6 +1,6 @@
 package routes
 import Chat
-import improved.spark.sockets.RouteHandler
+import io.dszopa.github.message_router.RouteHandler
 import org.eclipse.jetty.websocket.api.Session
 import org.json.JSONObject
 

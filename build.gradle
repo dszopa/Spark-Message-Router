@@ -1,4 +1,4 @@
-group 'improved-spark-sockets'
+group 'message-router'
 version '0.0.0'
 
 buildscript {
