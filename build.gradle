@@ -38,6 +38,7 @@ dependencies {
     // Testing
     testCompile "org.jetbrains.kotlin:kotlin-test"
     testCompile "org.jetbrains.kotlin:kotlin-test-junit"
+    testCompile "org.mockito:mockito-core:2.+"
 }
 
 compileKotlin {

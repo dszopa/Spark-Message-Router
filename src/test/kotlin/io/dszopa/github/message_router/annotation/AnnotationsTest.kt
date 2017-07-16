@@ -1,17 +1,12 @@
 package io.dszopa.github.message_router.annotation
 
+import io.dszopa.github.message_router.AnnotatedClass
 import org.junit.Test
 import kotlin.reflect.KClass
 import kotlin.reflect.full.declaredFunctions
 import kotlin.reflect.full.findAnnotation
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
-
-@MessageController
-class AnnotatedClass {
-    @Route("test")
-    fun annotatedFunction() {}
-}
 
 class MessageRouterTest {
     @Test fun annotationTypes() {
