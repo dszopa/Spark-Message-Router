@@ -22,8 +22,6 @@ dependencies {
     // Kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect"
-    testCompile "org.jetbrains.kotlin:kotlin-test"
-    testCompile "org.jetbrains.kotlin:kotlin-test-junit"
 
     // Spark Framework
     compile "com.sparkjava:spark-kotlin:1.0.0-alpha"
@@ -33,11 +31,13 @@ dependencies {
 
     // Utilities
     compile 'com.google.guava:guava:22.0'
-
-    // Additional Libraries
     compile "com.j2html:j2html:1.0.0"
     compile "org.json:json:20160810"
     compile  "org.slf4j:slf4j-simple:1.6.1"
+
+    // Testing
+    testCompile "org.jetbrains.kotlin:kotlin-test"
+    testCompile "org.jetbrains.kotlin:kotlin-test-junit"
 }
 
 compileKotlin {
