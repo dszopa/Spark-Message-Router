@@ -6,7 +6,7 @@ To use Spark-Message-Router, add it to your package manager with:
 
 Gradle
 ```groovy
-compile "io.dszopa.github:message-router:LATEST"
+compile "io.github.dszopa:message-router:LATEST"
 ```
 
 Maven
@@ -29,7 +29,7 @@ Then, in your `@OnWebSocketMessage` method, simply call `messageRouter.handle` w
 @Websocket
 public class SocketHandler {
     
-    private MessageRouter messageRouter = new MessageRouter("io.dszopa.github");
+    private MessageRouter messageRouter = new MessageRouter("io.github.dszopa");
     
     ...
     

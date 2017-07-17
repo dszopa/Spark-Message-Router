@@ -1,6 +1,6 @@
-package io.dszopa.github.message_router
+package io.github.dszopa.message_router
 
-import io.dszopa.github.message_router.annotation.Route
+import io.github.dszopa.message_router.annotation.Route
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner
 import io.github.lukehutch.fastclasspathscanner.scanner.ScanResult
 import org.eclipse.jetty.websocket.api.Session

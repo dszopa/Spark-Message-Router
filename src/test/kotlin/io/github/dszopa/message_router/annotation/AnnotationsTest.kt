@@ -1,6 +1,6 @@
-package io.dszopa.github.message_router.annotation
+package io.github.dszopa.message_router.annotation
 
-import io.dszopa.github.message_router.AnnotatedClass
+import io.github.dszopa.message_router.AnnotatedClass
 import org.junit.Test
 import kotlin.reflect.KClass
 import kotlin.reflect.full.declaredFunctions

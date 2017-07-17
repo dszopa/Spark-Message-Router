@@ -1,4 +1,4 @@
-group 'io.dszopa.github'
+group 'io.github.dszopa'
 version '1.0.0'
 
 buildscript {

@@ -1,4 +1,4 @@
-package io.dszopa.github.message_router.annotation
+package io.github.dszopa.message_router.annotation
 
 // TODO: add support for route being a regex string
 /**

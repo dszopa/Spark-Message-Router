@@ -1,4 +1,4 @@
-package io.dszopa.github.message_router.annotation
+package io.github.dszopa.message_router.annotation
 
 /**
  * A class level annotation that signifies that this class will contain routes
