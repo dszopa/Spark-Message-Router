@@ -1,7 +1,7 @@
 # Spark-Message-Router
 An improved way to handle your Spark socket messages
 
-### Downloading
+## Downloading
 To use Spark-Message-Router, add it to your package manager with:
 
 Gradle
@@ -18,7 +18,7 @@ Maven
 </dependency>
 ````
 
-### Usage
+## Usage
 
 Inside of your websocket class, create a `MessageRouter` object. 
 The objects parameter should be the package path where you plan 
@@ -64,7 +64,7 @@ webSocket.send(message);
 ```
 With the code we have written, we will send a message with a route of `/simpleRoute` and have it mapped to the method `simpleMessageHandler` which will output its message.
 
-### License
+## License
 MIT License
 
 Copyright (c) 2017 Daniel Szopa
