@@ -20,11 +20,11 @@ Maven
 
 ### Usage
 
-Inside of your websocket class, create a MessageRouter object. 
+Inside of your websocket class, create a `MessageRouter` object. 
 The objects parameter should be the package path where you plan 
 on storing your routes
 
-Then, in your @OnWebSocketMessage method, simply call `messageRouter.handle` with the Session & String parameters.
+Then, in your `@OnWebSocketMessage` method, simply call `messageRouter.handle` with the Session & String parameters.
 ```java
 @Websocket
 public class SocketHandler {
