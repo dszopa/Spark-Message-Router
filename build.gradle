@@ -28,10 +28,7 @@ dependencies {
 
     // Utilities
     compile "io.github.lukehutch:fast-classpath-scanner:2.4.2"
-    compile 'com.google.guava:guava:22.0'
-    compile "com.j2html:j2html:1.0.0"
     compile "org.json:json:20160810"
-    compile  "org.slf4j:slf4j-simple:1.6.1"
 
     // Testing
     testCompile "org.jetbrains.kotlin:kotlin-test"

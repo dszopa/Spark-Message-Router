@@ -13,6 +13,16 @@ import kotlin.reflect.full.declaredFunctions
 import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.jvm.jvmErasure
 
+/**
+ * A router for socket messages
+ *
+ * This class will use reflection to find all functions annotated with
+ * "@Route" and will map the functions to their route values.
+ *
+ * @param packagePath the package to be scanned for routes.
+ * @constructor Creates a new message router with routes found
+ *      through reflection.
+ */
 class MessageRouter(packagePath: String) {
 
     private val routeToMethodCalls: HashMap<String, Pair<Any, KFunction<*>>> = HashMap()
@@ -46,6 +56,13 @@ class MessageRouter(packagePath: String) {
         }
     }
 
+    /**
+     *  Routes incoming socket message to a function and calls that
+     *  function with the given parameters.
+     * @param user A session object that indicates the user who sent the socket message.
+     * @param message The socket message, this must be in JSON format
+     *      and include a "route" value in order for routing to work.
+     */
     fun handle(user: Session, message: String) {
         val messageJson: JSONObject = JSONObject(message)
 
