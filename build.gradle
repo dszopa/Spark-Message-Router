@@ -20,7 +20,7 @@ repositories {
 dependencies {
     // Kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
-    compile "org.jetbrains.kotlin:kotlin-reflect"
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
     // Jetty Websocket API for Session class
     compile "org.eclipse.jetty.websocket:websocket-api:9.4.4.v20170414"
@@ -30,8 +30,8 @@ dependencies {
     compile "org.json:json:20160810"
 
     // Testing
-    testCompile "org.jetbrains.kotlin:kotlin-test"
-    testCompile "org.jetbrains.kotlin:kotlin-test-junit"
+    testCompile "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
+    testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
     testCompile "org.mockito:mockito-core:2.8.47"
 }
 
@@ -63,7 +63,7 @@ signing {
 
 group = "io.github.dszopa"
 archivesBaseName = "message-router"
-version = "1.0.0"
+version = "1.0.1"
 
 uploadArchives {
     repositories {
