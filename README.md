@@ -1,3 +1,5 @@
+[![Kotlin](https://img.shields.io/badge/kotlin-1.1.3-blue.svg)](http://kotlinlang.org) [![Build Status](https://travis-ci.org/dszopa/Spark-Message-Router.svg?branch=master)](https://travis-ci.org/dszopa/Spark-Message-Router)
+
 # Spark-Message-Router
 An improved way to handle your Spark socket messages
 
