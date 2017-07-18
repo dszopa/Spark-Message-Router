@@ -31,7 +31,6 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.ear
 *.zip
@@ -191,5 +190,4 @@ local.properties
 /build/
 /.idea/
 /.gradle/
-/gradle/wrapper/gradle-wrapper.jar
 /message-router.iml

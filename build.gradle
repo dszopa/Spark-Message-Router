@@ -42,6 +42,9 @@ compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
 
+task wrapper(type: Wrapper) {
+    gradleVersion = "4.0.1"
+}
 
 task javadocJar(type: Jar) {
     classifier = 'javadoc'
