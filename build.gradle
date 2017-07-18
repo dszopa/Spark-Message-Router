@@ -68,6 +68,9 @@ group = "io.github.dszopa"
 archivesBaseName = "message-router"
 version = "1.0.1"
 
+def ossrhUsername = hasProperty('ossrhUsername') ? ossrhUsername : ""
+def ossrhPassword = hasProperty('ossrhPassword') ? ossrhPassword : ""
+
 uploadArchives {
     repositories {
         mavenDeployer {
