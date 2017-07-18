@@ -65,9 +65,10 @@ signing {
     sign configurations.archives
 }
 
-signArchives {
-    // To deploy to OSSRH, set enabled to true / comment out following line
-    enabled = false
+gradle.taskGraph.whenReady { graph ->
+    if (graph.hasTask(assemble)) {
+        signArchives.enabled = false
+    }
 }
 
 group = "io.github.dszopa"
