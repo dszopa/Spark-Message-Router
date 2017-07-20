@@ -8,8 +8,8 @@ import kotlin.reflect.full.findAnnotation
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
-class MessageRouterTest {
-    @Test fun annotationTypes() {
+class AnnotationsTest {
+    @Test fun verifyAnnotations() {
         val clazz: KClass<*> = Class.forName(AnnotatedClass::class.qualifiedName).kotlin
         assertNotNull(clazz)
 
@@ -24,5 +24,12 @@ class MessageRouterTest {
 
         assertNotNull(route)
         assertTrue(route?.value == "test")
+
+        for (function in clazz.declaredFunctions) {
+            // True because AnnotationClass only has one function with route
+            if (function.annotations.any { it.annotationClass == Route::class }) {
+                assertTrue(function.parameters[2].annotations.any { it.annotationClass == MessageObject::class })
+            }
+        }
     }
 }

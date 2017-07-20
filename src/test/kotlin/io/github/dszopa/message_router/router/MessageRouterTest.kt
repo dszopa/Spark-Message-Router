@@ -43,6 +43,4 @@ class MessageRouterTest {
     @Test(expected = ParameterMissmatchException::class) fun TestCustomMessageRouterInvalidParameters() {
         messageRouter = MessageRouter(packagePrefixError + ".param_mismatch")
     }
-
-    // TODO: add tests for handle
 }
