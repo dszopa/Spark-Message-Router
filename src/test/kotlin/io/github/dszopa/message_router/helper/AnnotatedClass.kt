@@ -1,4 +1,4 @@
-package io.github.dszopa.message_router
+package io.github.dszopa.message_router.helper
 
 import io.github.dszopa.message_router.annotation.MessageController
 import io.github.dszopa.message_router.annotation.Route

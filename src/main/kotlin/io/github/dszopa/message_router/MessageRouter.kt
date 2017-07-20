@@ -3,6 +3,8 @@ package io.github.dszopa.message_router
 import com.google.gson.Gson
 import io.github.dszopa.message_router.annotation.MessageObject
 import io.github.dszopa.message_router.annotation.Route
+import io.github.dszopa.message_router.exception.NonNullableTypeException
+import io.github.dszopa.message_router.exception.ParameterMissmatchException
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner
 import io.github.lukehutch.fastclasspathscanner.scanner.ScanResult
 import org.eclipse.jetty.websocket.api.Session
@@ -11,9 +13,11 @@ import java.lang.reflect.Type
 import java.util.*
 import kotlin.reflect.KClass
 import kotlin.reflect.KFunction
+import kotlin.reflect.KParameter
 import kotlin.reflect.full.createInstance
 import kotlin.reflect.full.declaredFunctions
 import kotlin.reflect.full.findAnnotation
+import kotlin.reflect.full.primaryConstructor
 import kotlin.reflect.jvm.javaType
 import kotlin.reflect.jvm.jvmErasure
 
@@ -46,14 +50,21 @@ class MessageRouter(packagePath: String) {
             for (function: KFunction<*> in clazz.declaredFunctions) {
                 if (function.annotations.any { it.annotationClass == Route::class}) {
 
-                    if ((function.parameters[1].type.jvmErasure != Session::class) ||
-                            ((function.parameters[2].type.jvmErasure !=  String::class) && (!function.parameters[2].annotations.any { it.annotationClass == MessageObject::class}))) {
-                        throw Error("Incorrect parameters. First paramter should be of type Session. Second parameter should be of type String or include the @MessageObject annotation.")
+                    if ((function.parameters.size != 3) || (function.parameters[1].type.jvmErasure != Session::class) ||
+                             ((function.parameters[2].type.jvmErasure !=  String::class) && (!function.parameters[2].annotations.any { it.annotationClass == MessageObject::class}))) {
+                        throw ParameterMissmatchException("Incorrect parameters. First paramter should be of type Session. Second parameter should be of type String or include the @MessageObject annotation.")
                     }
 
                     var param3: Type? = null
                     if (function.parameters[2].annotations.any { it.annotationClass == MessageObject::class}) {
                         param3 = function.parameters[2].type.javaType
+
+                        val messageObjectParameters = function.parameters[2].type.jvmErasure.primaryConstructor!!.parameters
+                        for (parameter: KParameter in messageObjectParameters) {
+                            if (!parameter.type.isMarkedNullable) {
+                                throw NonNullableTypeException("Objects annotated with @MessageObject must allow nullable values for all publicly available variables.")
+                            }
+                        }
                     }
 
                     val route: Route? = function.findAnnotation<Route>() // We already confirmed that it has a route annotation
