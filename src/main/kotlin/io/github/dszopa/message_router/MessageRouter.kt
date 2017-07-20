@@ -1,16 +1,20 @@
 package io.github.dszopa.message_router
 
+import com.google.gson.Gson
+import io.github.dszopa.message_router.annotation.MessageObject
 import io.github.dszopa.message_router.annotation.Route
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner
 import io.github.lukehutch.fastclasspathscanner.scanner.ScanResult
 import org.eclipse.jetty.websocket.api.Session
 import org.json.JSONObject
+import java.lang.reflect.Type
 import java.util.*
 import kotlin.reflect.KClass
 import kotlin.reflect.KFunction
 import kotlin.reflect.full.createInstance
 import kotlin.reflect.full.declaredFunctions
 import kotlin.reflect.full.findAnnotation
+import kotlin.reflect.jvm.javaType
 import kotlin.reflect.jvm.jvmErasure
 
 /**
@@ -25,7 +29,8 @@ import kotlin.reflect.jvm.jvmErasure
  */
 class MessageRouter(packagePath: String) {
 
-    private val routeToMethodCalls: HashMap<String, Pair<Any, KFunction<*>>> = HashMap()
+    private val routeToMethodCalls: HashMap<String, Triple<Any, KFunction<*>, Type?>> = HashMap()
+    private val gson: Gson = Gson()
 
     init {
         val scanResult: ScanResult = FastClasspathScanner(packagePath)
@@ -41,15 +46,20 @@ class MessageRouter(packagePath: String) {
             for (function: KFunction<*> in clazz.declaredFunctions) {
                 if (function.annotations.any { it.annotationClass == Route::class}) {
 
-                    if (!function.parameters.any { it.type.jvmErasure == String::class } ||
-                            !function.parameters.any { it.type.jvmErasure == Session::class }) {
-                        throw Error("Missing String and / or Session parameter types on function: ${function.name}")
+                    if ((function.parameters[1].type.jvmErasure != Session::class) ||
+                            ((function.parameters[2].type.jvmErasure !=  String::class) && (!function.parameters[2].annotations.any { it.annotationClass == MessageObject::class}))) {
+                        throw Error("Incorrect parameters. First paramter should be of type Session. Second parameter should be of type String or include the @MessageObject annotation.")
+                    }
+
+                    var param3: Type? = null
+                    if (function.parameters[2].annotations.any { it.annotationClass == MessageObject::class}) {
+                        param3 = function.parameters[2].type.javaType
                     }
 
                     val route: Route? = function.findAnnotation<Route>() // We already confirmed that it has a route annotation
                     if (route != null) {
                         val value: String = route.value
-                        routeToMethodCalls.put(value, Pair(instance, function))
+                        routeToMethodCalls.put(value, Triple(instance, function, param3))
                     }
                 }
             }
@@ -68,8 +78,13 @@ class MessageRouter(packagePath: String) {
 
         if (messageJson.has("route") && routeToMethodCalls.containsKey(messageJson.getString("route"))) {
             val route: String = messageJson.getString("route")
-            val methodPair: Pair<Any, KFunction<*>>? = routeToMethodCalls[route]
-            methodPair?.second?.call(methodPair.first, user, message)
+            val methodTriple: Triple<Any, KFunction<*>, Type?>? = routeToMethodCalls[route]
+
+            if (methodTriple?.third != null) {
+                methodTriple.second.call(methodTriple.first, user, gson.fromJson(message, methodTriple.third))
+            } else {
+                methodTriple?.second?.call(methodTriple.first, user, message)
+            }
         }
     }
 }
