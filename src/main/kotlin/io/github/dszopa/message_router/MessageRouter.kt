@@ -59,10 +59,14 @@ class MessageRouter(packagePath: String) {
                     if (function.parameters[2].annotations.any { it.annotationClass == MessageObject::class}) {
                         param3 = function.parameters[2].type.javaType
 
-                        val messageObjectParameters = function.parameters[2].type.jvmErasure.primaryConstructor!!.parameters
-                        for (parameter: KParameter in messageObjectParameters) {
-                            if (!parameter.type.isMarkedNullable) {
-                                throw NonNullableTypeException("Objects annotated with @MessageObject must allow nullable values for all publicly available variables.")
+                        val messageObjectParameters = function.parameters[2].type.jvmErasure.primaryConstructor?.parameters
+
+                        // The only way this will ever be true is if it is a no-primary constructor java object, or a no-constructor kotlin object
+                        if (messageObjectParameters != null) {
+                            for (parameter: KParameter in messageObjectParameters) {
+                                if (!parameter.type.isMarkedNullable) {
+                                    throw NonNullableTypeException("Objects annotated with @MessageObject must allow nullable values for all publicly available variables.")
+                                }
                             }
                         }
                     }
