@@ -21,6 +21,7 @@ Maven
 ````
 
 ## Usage
+### Routing
 
 Inside of your websocket class, create a `MessageRouter` object. 
 The objects parameter should be the package path where you plan 
@@ -65,6 +66,47 @@ var message = JSON.stringify({
 webSocket.send(message);
 ```
 With the code we have written, we will send a message with a route of `/simpleRoute` and have it mapped to the method `simpleMessageHandler` which will output its message.
+
+### Typed Messages
+Using the annotation `@MessageObject` and specifying a typed object on the second parameter of a `@Route` method will
+ automatically convert the incoming JSON message to an object of the specified type.
+ 
+ For example lets create a simple `Person` class
+ 
+ ```java
+public class Person {
+    
+    private String name;
+    
+    public void getName() {
+        return name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+```
+ 
+ We can then have the incoming JSON string automatically converted into a `Person` object
+ ```java
+ @MessageController
+ public class SimpleMessageRouter {
+    
+    @Route("/customTypeMessage")
+    public void customTypeMessageHandler(Session user, @MessageObject Person person) {
+        System.out.println(person.getName());
+    }
+ }
+ ```
+ 
+ **Note:** `@MessageObject` will only set the values of publicly available variables. Also variables with 
+ a `setVariableName` method will have their value set regardless of the variables scope since the setter is public.
+ 
+ **Note:** In Kotlin the only values that can be set automatically are those specified as properties in the primary constructor. 
+ These variables MUST be nullable (For example: `var name:String?`).
+ This is a limitation of the Gson library used for JSON to Object mapping.
+ 
 
 ## License
 MIT License
