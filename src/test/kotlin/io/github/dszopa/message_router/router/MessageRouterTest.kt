@@ -98,4 +98,13 @@ class MessageRouterTest {
         assertTrue(nullableGreetingHandlerCalled)
         assertEquals(Greeting(null, null), nullableGreetingHandlerGreeting)
     }
+
+    @Test fun handleNoRoute() {
+        assertFalse(nullableGreetingHandlerCalled)
+        assertNull(nullableGreetingHandlerGreeting)
+        val messageRouter = MessageRouter(packagePath + ".with_null")
+        messageRouter.handle(mockSession!!, "{}")
+        assertFalse(nullableGreetingHandlerCalled)
+        assertNull(nullableGreetingHandlerGreeting)
+    }
 }

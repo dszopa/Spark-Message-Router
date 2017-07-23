@@ -68,15 +68,13 @@ class MessageRouter(packagePath: String) {
                         param3 = function.parameters[2].type.javaType
                     }
 
-                    val route: Route? = function.findAnnotation<Route>() // We already confirmed that it has a route annotation
-                    if (route != null) {
-                        val value: String = route.value
-                        if (routeToMethodCalls.containsKey(value)) {
-                            throw DuplicateRouteException("Cannot create duplicate route: '$value'")
-                        }
-                        val instance: Any = clazz.createInstance()
-                        routeToMethodCalls.put(value, Triple(instance, function, param3))
+                    val route: Route = function.findAnnotation<Route>()!! // We already confirmed that it has a route annotation
+                    val value: String = route.value
+                    if (routeToMethodCalls.containsKey(value)) {
+                        throw DuplicateRouteException("Cannot create duplicate route: '$value'")
                     }
+                    val instance: Any = clazz.createInstance()
+                    routeToMethodCalls.put(value, Triple(instance, function, param3))
                 }
             }
         }
