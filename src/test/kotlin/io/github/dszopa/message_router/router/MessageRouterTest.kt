@@ -1,6 +1,7 @@
 package io.github.dszopa.message_router.router
 
 import io.github.dszopa.message_router.MessageRouter
+import io.github.dszopa.message_router.exception.DuplicateRouteException
 import io.github.dszopa.message_router.exception.ParameterMismatchException
 import io.github.dszopa.message_router.helper.no_type.nonTypedMessageHandlerCalled
 import io.github.dszopa.message_router.helper.no_type.nonTypedMessageHandlerMessage
@@ -38,6 +39,10 @@ class MessageRouterTest {
 
     @Test(expected = ParameterMismatchException::class) fun messageRouterInvalidFunctionParams() {
         MessageRouter(packagePathError + ".param_mismatch")
+    }
+
+    @Test(expected = DuplicateRouteException::class) fun messageRouterDuplicateRoute() {
+        MessageRouter(packagePathError + ".duplicate_route")
     }
 
     @Test fun handleNonCustom() {

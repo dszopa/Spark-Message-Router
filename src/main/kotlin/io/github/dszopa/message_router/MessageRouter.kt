@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder
 import com.google.gson.JsonParseException
 import io.github.dszopa.message_router.annotation.MessageObject
 import io.github.dszopa.message_router.annotation.Route
+import io.github.dszopa.message_router.exception.DuplicateRouteException
 import io.github.dszopa.message_router.exception.ParameterMismatchException
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner
 import io.github.lukehutch.fastclasspathscanner.scanner.ScanResult
@@ -50,7 +51,6 @@ class MessageRouter(packagePath: String) {
 
         for (className: String in classesContainingRouteMethods) {
             val clazz: KClass<*> = Class.forName(className).kotlin
-            val instance: Any = clazz.createInstance()
 
             for (function: KFunction<*> in clazz.declaredFunctions) {
                 if (function.annotations.any { it.annotationClass == Route::class}) {
@@ -71,6 +71,10 @@ class MessageRouter(packagePath: String) {
                     val route: Route? = function.findAnnotation<Route>() // We already confirmed that it has a route annotation
                     if (route != null) {
                         val value: String = route.value
+                        if (routeToMethodCalls.containsKey(value)) {
+                            throw DuplicateRouteException("Cannot create duplicate route: '$value'")
+                        }
+                        val instance: Any = clazz.createInstance()
                         routeToMethodCalls.put(value, Triple(instance, function, param3))
                     }
                 }

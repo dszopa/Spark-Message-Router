@@ -1,6 +1,7 @@
 package io.github.dszopa.message_router.router;
 
 import io.github.dszopa.message_router.MessageRouter;
+import io.github.dszopa.message_router.exception.DuplicateRouteException;
 import io.github.dszopa.message_router.exception.ParameterMismatchException;
 import io.github.dszopa.message_router.helper.j_no_type.JavaAnnotatedClassNoType;
 import io.github.dszopa.message_router.helper.j_with_type.JavaAnnotatedClassWithType;
@@ -32,6 +33,11 @@ public class JavaMessageRouterTest {
     @Test(expected = ParameterMismatchException.class)
     public void messageRouterInvalidFunctionParams() throws Exception {
         MessageRouter messageRouter = new MessageRouter(packagePathError + ".j_param_mismatch");
+    }
+
+    @Test(expected = DuplicateRouteException.class)
+    public void messageRouterDuplicateRoute() throws Exception {
+        MessageRouter messageRouter = new MessageRouter(packagePathError + ".j_duplicate_route");
     }
 
     @Test

@@ -1,6 +1,5 @@
 package io.github.dszopa.message_router.annotation
 
-// TODO: add support for route being a regex string
 /**
  * A funtion-level annotation that specifies that the function should be ran when
  *  a socket request in JSON format with a "route" value matches the given value
