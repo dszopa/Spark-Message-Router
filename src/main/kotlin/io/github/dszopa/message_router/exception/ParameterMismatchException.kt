@@ -5,4 +5,4 @@ package io.github.dszopa.message_router.exception
  * did not have its first parameter as a Session type, or the second parameter
  * was not a String and was not annotated with @MessageObject
  */
-class ParameterMissmatchException(message: String) : Throwable(message)
+class ParameterMismatchException(message: String) : Throwable(message)

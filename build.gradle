@@ -16,6 +16,7 @@ apply plugin: 'java'
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
@@ -27,9 +28,11 @@ dependencies {
     compile "org.eclipse.jetty.websocket:websocket-api:9.4.4.v20170414"
 
     // Utilities
+    compile 'me.sargunvohra.lib:gson-kotlin:0.2.0'
     compile "io.github.lukehutch:fast-classpath-scanner:2.4.2"
     compile "org.json:json:20160810"
-    compile 'com.google.code.gson:gson:2.8.1'
+    compile 'org.slf4j:slf4j-api:1.7.25'
+    compile 'org.slf4j:slf4j-simple:1.7.25'
 
     // Testing
     testCompile "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
