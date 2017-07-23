@@ -1,4 +1,4 @@
-package io.github.dszopa.message_router.exception.param_mismatch;
+package io.github.dszopa.message_router.exception.j_param_mismatch;
 
 import io.github.dszopa.message_router.annotation.MessageController;
 import io.github.dszopa.message_router.annotation.Route;
