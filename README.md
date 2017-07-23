@@ -8,7 +8,7 @@ To use Spark-Message-Router, add it to your package manager with:
 
 Gradle
 ```groovy
-compile "io.github.dszopa:message-router:LATEST"
+compile "io.github.dszopa:message-router:1.2.0"
 ```
 
 Maven
@@ -16,7 +16,7 @@ Maven
 <dependency>
     <groupId>io.github.dszopa</groupId>
     <artifactId>message-router</artifactId>
-    <version>LATEST</version>
+    <version>1.2.0</version>
 </dependency>
 ````
 

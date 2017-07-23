@@ -77,7 +77,7 @@ gradle.taskGraph.whenReady { graph ->
 
 group = "io.github.dszopa"
 archivesBaseName = "message-router"
-version = "1.1.1"
+version = "1.2.0"
 
 def ossrhUsername = hasProperty('ossrhUsername') ? ossrhUsername : ""
 def ossrhPassword = hasProperty('ossrhPassword') ? ossrhPassword : ""
