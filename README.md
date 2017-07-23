@@ -88,7 +88,7 @@ public class Person {
 }
 ```
  
- We can then have the incoming JSON string automatically converted into a `Person` object
+ We can then have the incoming JSON's `data` field automatically converted into a `Person` object
  ```java
  @MessageController
  public class SimpleMessageRouter {
@@ -100,12 +100,24 @@ public class Person {
  }
  ```
  
+ ```javascript
+ var webSocket = new Websocket('ws://localhost:4567/');
+ 
+ var message = JSON.stringify({
+     route: "/simpleMessage",
+     data: {
+         name: "Simple Name:"
+     }
+ });
+ 
+ webSocket.send(message);
+ ```
+ 
  **Note:** `@MessageObject` will only set the values of publicly available variables. Also variables with 
  a `setVariableName` method will have their value set regardless of the variables scope since the setter is public.
  
- **Note:** In Kotlin the only values that can be set automatically are those specified as properties in the primary constructor. 
- These variables MUST be nullable (For example: `var name:String?`).
- This is a limitation of the Gson library used for JSON to Object mapping.
+ **Note:** In Kotlin a warning message indicating an invalid call will be logged if 
+ a request tries to assign null values to non-nullable properties.
  
 
 ## License
